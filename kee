@@ -19,7 +19,8 @@ help() {
       e.g.: kee start 1h2m   - starts timer with 1 hour and 2 minutes
       ${italic}It expects this time in the format XhXmXs, I'll do whatever I want if you do not follow it${normal}
   ${bold}COMMANDS${normal}
-      show  - prints the current time to standard output (default)
+      help  - shows this screen (default)
+      show  - prints the current time to standard output
       stop  - stops the current timer
       vars  - prints the cache variables stored in $CACHE/vars
       focus - makes the timer print to screen the current time. Set custom render interval with -i
