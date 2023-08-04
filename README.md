@@ -23,6 +23,21 @@ If no unit is passed, than nothing is considered, the timer starts with 0.
 
 ## Install
 
+```sh
+curl -sSO https://raw.githubusercontent.com/ricardoraposo/kee/main/kee
+chmod +x kee
+sudo mv kee ~/.local/bin # you can move it to wherever you feel it's best for you, as long as it's on your PATH
+```
+
+## Tab Completion
+
+To activate tab completion just use the `complete -C` option from your
+`.bashrc` or command line.
+It also works on zsh if you have Oh My Zsh installed.
+
+```
+complete -C kee kee
+```
 
 ## Integration with TMUX
 
