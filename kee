@@ -214,7 +214,7 @@ fi
 # Add the snippet below to your bashrc/zshrc/fishrc/whateverrc to add completion 
 # complete -C kee kee
 if [[ -n $COMP_LINE ]]; then
-  printf "start\nstop\nshow\nset\nvars\nhelp\n"
+  printf "start\nstop\nfocus\nshow\nset\nvars\nhelp\n"
   exit
 fi
 
