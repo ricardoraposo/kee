@@ -22,7 +22,7 @@ help() {
       show  - prints the current time to standard output (default)
       stop  - stops the current timer
       vars  - prints the cache variables stored in $CACHE/vars
-      focus - makes the timer print to screen the current time.
+      focus - makes the timer print to screen the current time. Set custom render interval with -i
       set   - sets new variables to vars file. It expects extra parameters.
               default|def|d     - sets new default time
               warning|warn|w    - sets new warning time
