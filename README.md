@@ -3,6 +3,8 @@
 Kee is a small CLI timer, made to be integrated with other applications that allow running
 terminal commands inside it. For example TMUX and vim.
 
+![](./images/keegif.gif)
+
 ## Usage
 
 ```sh
