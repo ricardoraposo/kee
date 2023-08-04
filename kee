@@ -5,6 +5,35 @@ DATECMD=$([[ "$OSTYPE" == "darwin"* ]] && echo "gdate" || echo "date" )
 SEDCMD=$([[ "$OSTYPE" == "darwin"* ]] && echo "sed -i ''" || echo "sed -i=''" )
 [[ ! -d $CACHE ]] && mkdir "$CACHE" && printf "default=47m39s\nemoji=🤯\nwarnemoji=🦊\nwarn=1m\n" >> "$CACHE/vars"
 
+help() {
+  bold=$(tput bold)
+  italic=$(tput sitm)
+  normal=$(tput sgr0)
+
+  cat << EOF
+  ${bold}NAME${normal}
+      kee - is the sound I made when I created this, this is a timer btw
+  ${bold}USAGE${normal}
+      kee COMMAND <params>
+      e.g.: kee start 10m32s - starts timer with 10 minutes and 32 seconds
+      e.g.: kee start 1h2m   - starts timer with 1 hour and 2 minutes
+      ${italic}It expects this time in the format XhXmXs, I'll do whatever I want if you do not follow it${normal}
+  ${bold}COMMANDS${normal}
+      show  - prints the current time to standard output (default)
+      stop  - stops the current timer
+      vars  - prints the cache variables stored in $CACHE/vars
+      set   - sets new variables to vars file. It expects extra parameters.
+              default|def|d     - sets new default time
+              warning|warn|w    - sets new warning time
+              emoji|emo|e       - sets new emoji
+              warnemoji|wemo|we - sets new warning emoji
+      start - starts the timer according to the parameters passed. It expects extra parameters or not lol
+              time in XhXmXs format - does what you expect it to
+              hour    - starts timer that will go until the beginning of the next hour
+              <empty> - starts time with the default time set in the variables
+EOF
+}
+
 parse_input() {
   if [[ "$1" == "hour" ]]; then
     MINUTEINPUT=$(( 59 - $(date +"%M")))
@@ -148,10 +177,18 @@ stop() {
   $SEDCMD "/target=/d" "$CACHE/vars"
 }
 
-[[ -z "$*" ]] && show || "$@"
-#
+if [[ -z "$*" ]]; then
+ show
+else
+  if command -v "$@" &>/dev/null ; then
+    "$@"
+  else
+    echo "Not a valid command. Try 'kee help' if you have no clue of what you're doing"
+  fi
+fi
+
 # Completion stuff
-# Add the snippet below to your bashrc/zshrc to add completion 
+# Add the snippet below to your bashrc/zshrc/fishrc/whateverrc to add completion 
 # complete -C kee kee
 if [[ -n $COMP_LINE ]]; then
   printf "start\nstop\nshow\nset\nvars"
