@@ -16,7 +16,7 @@ kee stop
 kee help
 ```
 
-Run 'kee help' for more details
+It can do more stuff, check 'kee help' for instructions.
 
 It is possible to pass a time unit for `<duration>`.
 
