@@ -12,7 +12,7 @@ help() {
 
   cat << EOF
   ${bold}NAME${normal}
-      kee - is the sound I made when I created this, this is a timer btw
+      kee - was the sound I made when I created this, this is a timer btw
   ${bold}USAGE${normal}
       kee COMMAND <params>
       e.g.: kee start 10m32s - starts timer with 10 minutes and 32 seconds
@@ -158,7 +158,7 @@ get_focus() {
 }
 
 focus() {
-  SLEEP="sleep 2"
+  SLEEP="sleep 1"
   while getopts ':i:' flag; do
     case "$flag" in
       i) SLEEP="sleep $OPTARG" ;;
@@ -200,7 +200,7 @@ stop() {
 }
 
 if [[ -z "$*" ]]; then
- show
+ help
 else
   if command -v "$@" &>/dev/null ; then
     "$@"

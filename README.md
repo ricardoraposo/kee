@@ -48,7 +48,7 @@ Add the lines below to your `.tmux.conf` file.
 
 ```tmux
 set -g status-interval 1
-set -g status-right "#(kee)"
+set -g status-right "#(kee show)"
 ```
 
 ## Integration with vim/neovim
@@ -58,7 +58,7 @@ This didn't look good, I'm sure you can do better than me.
 
 ```vim
 function! Kee()
-  return system("kee")
+  return system("kee show")
 endfunction
 set statusline+=%{Kee()}
 ```
