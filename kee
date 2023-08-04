@@ -97,8 +97,6 @@ get_emoji() {
   emoji=$(grep "^emoji=" < "$CACHE/vars" | sed "s/emoji=//")
   warnemoji=$(grep "^warnemoji=" < "$CACHE/vars" | sed "s/warnemoji=//")
   displayemoji=$emoji
-  echo "$warn"
-
   if [[ $minute -lt $warn ]]; then
     [[ $(( second % 2 )) -eq 0 ]] && displayemoji=$warnemoji || displayemoji=$emoji
   fi
