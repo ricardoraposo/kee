@@ -22,6 +22,7 @@ help() {
       show  - prints the current time to standard output (default)
       stop  - stops the current timer
       vars  - prints the cache variables stored in $CACHE/vars
+      focus - makes the timer print to screen the current time.
       set   - sets new variables to vars file. It expects extra parameters.
               default|def|d     - sets new default time
               warning|warn|w    - sets new warning time
@@ -109,22 +110,22 @@ formatted_out() {
   [[ $minute -lt 0 ]] && minute=$(( minute * -1 ))
   if [[ hour -eq 0 ]]; then
     if [[ $(( second / 10 )) -lt 1 ]]; then
-      echo "${displayemoji}${symbol}${minute}:0${second}"
+      printf "\r${displayemoji}${symbol}${minute}:0${second}"
     else
-      echo "${displayemoji}${symbol}${minute}:${second}"
+      printf "\r${displayemoji}${symbol}${minute}:${second}"
     fi
   else
     if [[ $(( minute / 10 )) -lt 1 ]]; then
       if [[ $(( second / 10 )) -lt 1 ]]; then
-        echo "${displayemoji}${symbol}${hour}:0${minute}:0${second}"
+        printf "\r${displayemoji}${symbol}${hour}:0${minute}:0${second}"
       else
-        echo "${displayemoji}${symbol}${hour}:0${minute}:${second}"
+        printf "\r${displayemoji}${symbol}${hour}:0${minute}:${second}"
       fi
     else
       if [[ $(( second / 10 )) -lt 1 ]]; then
-        echo "${displayemoji}${symbol}${hour}:${minute}:0${second}"
+        printf "\r${displayemoji}${symbol}${hour}:${minute}:0${second}"
       else
-        echo "${displayemoji}${symbol}${hour}:${minute}:${second}"
+        printf "\r${displayemoji}${symbol}${hour}:${minute}:${second}"
       fi
     fi
   fi
@@ -144,6 +145,29 @@ show() {
     gen_val
     formatted_out
   fi
+}
+
+get_focus() {
+  clear
+  start "$1"
+  trap stop EXIT
+  while true; do
+    show
+    $SLEEP
+  done 
+}
+
+focus() {
+  SLEEP="sleep 2"
+  while getopts ':i:' flag; do
+    case "$flag" in
+      i) SLEEP="sleep $OPTARG" ;;
+      *) 
+        ;;
+    esac
+  done
+  shift $((OPTIND - 1))
+  get_focus "$1"
 }
 
 set() {
